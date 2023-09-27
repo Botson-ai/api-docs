@@ -22,38 +22,14 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 // Use Swagger UI as middleware
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, {
+  explorer: false,
+  docExpansion: 'none',
+  deepLinking: false,
+}));
 
 /**
  * @swagger
- * components:
- *   securitySchemes:
- *     ApiKeyAuth:
- *       type: apiKey
- *       in: query
- *       name: api_key
- *   schemas:
- *     RevenueResponse:
- *       type: object
- *       additionalProperties:
- *         type: object
- *         additionalProperties:
- *           type: object
- *           properties:
- *             Amount:
- *               type: number
- *             Transactions:
- *               type: integer
- *             CPC:
- *               type: number
- *             Currency:
- *               type: string
- *     ErrorResponse:
- *       type: object
- *       properties:
- *         error:
- *           type: string
- * 
  * /botson-api:
  *   get:
  *     summary: Get revenue data
@@ -75,6 +51,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *         name: last_days
  *         schema:
  *           type: integer
+ *           description: Number of days in the past from today
  *       - in: query
  *         name: end_date
  *         schema:
